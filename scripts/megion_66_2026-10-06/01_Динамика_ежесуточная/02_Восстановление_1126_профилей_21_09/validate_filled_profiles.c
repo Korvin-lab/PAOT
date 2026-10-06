@@ -1,0 +1,6 @@
+#define _GNU_SOURCE
+#include <math.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+int main(int argc,char**argv){if(argc!=2)return 2;FILE*idx=fopen(argv[1],"rb");if(!idx)return 2;char*line=NULL;size_t cap=0;ssize_t n;unsigned long long profiles=0,rows=0,bad=0,water_present=0;double minv[5]={INFINITY,INFINITY,INFINITY,INFINITY,INFINITY},maxv[5]={-INFINITY,-INFINITY,-INFINITY,-INFINITY,-INFINITY};int cols[5]={8,9,10,21,50};while((n=getline(&line,&cap,idx))>=0){char*p=strchr(line,'\t');if(!p)continue;p=strchr(p+1,'\t');if(!p)continue;p++;p[strcspn(p,"\r\n")]=0;FILE*f=fopen(p,"rb");if(!f){perror(p);return 2;}profiles++;char*row=NULL;size_t rc=0;while((n=getline(&row,&rc,f))>=0){rows++;char*field[51];int k=0;field[k++]=row;for(char*c=row;*c;c++)if(*c==','){*c=0;if(k<51)field[k++]=c+1;}if(k!=51){bad++;continue;}for(int j=0;j<5;j++){char*e;double v=strtod(field[cols[j]],&e);if(e==field[cols[j]]||!isfinite(v)||v<=0){bad++;break;}if(v<minv[j])minv[j]=v;if(v>maxv[j])maxv[j]=v;}if(field[49][0])water_present++;}free(row);fclose(f);}printf("profiles=%llu rows=%llu bad_required=%llu h2s_water_nonblank=%llu",profiles,rows,bad,water_present);for(int j=0;j<5;j++)printf(" c%d_min=%.15g c%d_max=%.15g",cols[j],minv[j],cols[j],maxv[j]);puts("");return bad?1:0;}

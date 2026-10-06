@@ -1,0 +1,23 @@
+{
+  "status": "PASS",
+  "source": "/Volumes/KINGSTON/Газпром работа/Прогнозирование утонения стенки трубы/работа с json/megion_kvch_ing_rebuild_2026-10-01/final_dataset__KVCH_ING50.csv",
+  "source_sha256": "5d05ff93c7450aa166be03f2f9e89c50c85dfbd7a87c09b75e755887e91c1d7b",
+  "source_rows": 138583872,
+  "output": "/Volumes/KINGSTON/Газпром работа/Прогнозирование утонения стенки трубы/работа с json/megion_weekly_2026-10-02/final_dataset__WEEKLY_7D.csv",
+  "output_sha256": "b422affa9e5d03b7ab9cfb715248fd94a2032fb16f5ddee58966373b32e25587",
+  "output_bytes": 18925526407,
+  "output_rows": 22091841,
+  "columns": 50,
+  "pipes": 66,
+  "source_pipe_dates": 71460,
+  "pipe_weeks": 11357,
+  "complete_7_day_pipe_weeks": 8588,
+  "partial_pipe_weeks": 2769,
+  "first_week": "2015-01-26",
+  "last_week": "2026-07-27",
+  "weekly_rule": "Monday-Sunday, date labels the Monday; group by id and segment_id; arithmetic mean of available finite daily values; all-NaN remains NaN",
+  "identifiers": "id and segment_id preserved, never averaged; no rows created for entirely unobserved weeks",
+  "h2s_oil_unique_target_measurements": 15,
+  "h2s_oil_positive_target_measurements": 0,
+  "h2s_water_policy": "Preserve missing values in the existing daily dataset; source oil zeros are audited and not silently converted into positive concentrations"
+}
